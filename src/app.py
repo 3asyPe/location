@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+import requests
+from flask import Flask, request, render_template
 
 
 app = Flask(__name__)
@@ -6,5 +7,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def location_page():
-    print(request.__dict__)
-    return request.environ.get('HTTP_X_FORWARDED_FOR')
+    ip = request.environ.get('HTTP_X_FORWARDED_FOR')
+    location = requests.get(f"http://ipwhois.app/json/{ip}").json()
+    return render_template(
+        "index.html",
+        longitude=location["longitude"],
+        latitude=location["latitude"],
+    )
