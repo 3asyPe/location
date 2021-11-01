@@ -7,4 +7,4 @@ app = Flask(__name__)
 @app.route("/")
 def location_page():
     print(request.__dict__)
-    return jsonify(f"{request.__dict__}")
+    return request.environ.get('HTTP_X_FORWARDED_FOR')
