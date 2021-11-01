@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 
 app = Flask(__name__)
@@ -6,4 +6,5 @@ app = Flask(__name__)
 
 @app.route("/")
 def location_page():
-    return f"{request.environ.get('X-Forwarded-For')}"
+    print(request.__dict__)
+    return jsonify(f"{request.__dict__}")
