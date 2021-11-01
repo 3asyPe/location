@@ -6,4 +6,4 @@ app = Flask(__name__)
 
 @app.route("/")
 def location_page():
-    return f"{request.__dict__}"
+    return f"{request.environ.get('X-Forwarded-For')}"
